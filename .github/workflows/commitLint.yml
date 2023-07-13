@@ -3,7 +3,7 @@ name: commitLint
 on:
     push:
         branches:
-            - main
+            - master
 
 jobs:
     lint:
