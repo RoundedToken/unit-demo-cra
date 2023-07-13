@@ -11,13 +11,7 @@ jobs:
                   fetch-depth: 0
             - uses: actions/setup-node@v3
               with:
-                  node-version: 18.x
-            - name: Print versions
-              run: |
-                  git --version
-                  node --version
-                  npm --version
-                  npx commitlint --version
+                  node-version: 18
             - name: Install commitlint
               run: |
                   npm install conventional-changelog-conventionalcommits
