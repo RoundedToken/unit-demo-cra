@@ -17,3 +17,7 @@ jobs:
               run: npm ci
             - name: Unit tests
               run: npm run test-ci
+            - name: e2e tests
+              run: npm run e2e
+            - name: Lint tests
+              run: npm run lint
