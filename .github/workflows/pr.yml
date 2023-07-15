@@ -26,10 +26,8 @@ jobs:
             - uses: actions/upload-artifact@v3
               with:
                   name: e2e report
-                  path: |
-                      ../playwright-report/index.html
+                  path: playwright-report/index.html
             - uses: actions/upload-artifact@v3
               with:
                   name: unit report
-                  path: |
-                      ../test-report.html
+                  path: test-report.html
