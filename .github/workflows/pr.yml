@@ -1,7 +1,6 @@
 name: CI
 
-on:
-    pull_request:
+on: pull_request_target
 
 jobs:
     test:
@@ -9,6 +8,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
               with:
+                  ref: ${{ github.head_ref }}
                   fetch-depth: 0
             - uses: actions/setup-node@v3
               with:
