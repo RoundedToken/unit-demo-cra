@@ -23,3 +23,13 @@ jobs:
               run: npm run e2e
             - name: Lint tests
               run: npm run lint
+            - uses: actions/upload-artifact@v3
+              with:
+                  name: e2e report
+                  path: |
+                      ../playwright-report/index.html
+            - uses: actions/upload-artifact@v3
+              with:
+                  name: unit report
+                  path: |
+                      ../test-report.html
