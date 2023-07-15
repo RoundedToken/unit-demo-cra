@@ -17,17 +17,19 @@ jobs:
               run: npm ci
             - name: Unit tests
               run: npm run test-ci
-            - uses: actions/upload-artifact@v3
-              with:
-                  name: unit report
-                  path: test-report.html
             - name: Install
               run: npx playwright install --with-deps
             - name: e2e tests
               run: npm run e2e
+            - name: Lint tests
+              run: npm run lint
             - uses: actions/upload-artifact@v3
+              if: ${{ always() }}
               with:
                   name: e2e report
                   path: playwright-report/index.html
-            - name: Lint tests
-              run: npm run lint
+            - uses: actions/upload-artifact@v3
+              if: ${{ always() }}
+              with:
+                  name: unit report
+                  path: test-report.html
