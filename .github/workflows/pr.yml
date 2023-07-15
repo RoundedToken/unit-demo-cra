@@ -17,6 +17,8 @@ jobs:
               run: npm ci
             - name: Unit tests
               run: npm run test-ci
+            - name: Install
+              run: npx playwright install --with-deps
             - name: e2e tests
               run: npm run e2e
             - name: Lint tests
