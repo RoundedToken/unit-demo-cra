@@ -1,10 +1,13 @@
 name: CI
 
-on: [pull_request]
-
+on:
+    pull_request_target:
+env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
-    test:
+    build:
         runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@v3
               with:
@@ -12,7 +15,45 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 18
-            - name: Install deps
+            - name: Install dependencies
               run: npm ci
-            - name: Unit tests
+            - name: Run tests
               run: npm run test-ci
+            - name: Check for merge conflicts
+              run: git merge-tree HEAD @{u} $(git rev-parse --show-toplevel) | grep -q -E '^[<>]'; if [[ $? -eq 0 ]]; then exit 1; fi
+            - name: Set check status
+              uses: actions/github-script@v6
+              with:
+                  github-token: ${{ env.GITHUB_TOKEN }}
+                  script: |
+                      const conclusion = process.exitCode === 0 ? 'success' : 'failure'
+                      const payload = {
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        sha: context.sha,
+                        state: 'completed',
+                        conclusion: conclusion,
+                        name: 'CI',
+                        output: {
+                          title: 'CI',
+                          summary: conclusion,
+                        }
+                      }
+                      await github.checks.create(payload)
+
+# on: [pull_request]
+
+# jobs:
+#     test:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - uses: actions/checkout@v3
+#               with:
+#                   fetch-depth: 0
+#             - uses: actions/setup-node@v3
+#               with:
+#                   node-version: 18
+#             - name: Install deps
+#               run: npm ci
+#             - name: Unit tests
+#               run: npm run test-ci
