@@ -22,7 +22,5 @@ jobs:
                   BODY: ${{ steps.changelog.outputs.changelog }}
                   VERSION: ${{ github.ref_name }}
               with:
-                  assignees: RoundedToken
-                  milestone: 1
                   update_existing: true
                   search_existing: all
