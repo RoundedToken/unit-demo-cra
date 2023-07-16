@@ -4,7 +4,7 @@ assignees: RoundedToken
 labels: RELEASE
 ---
 
-Автор: {{  env.NAME }}
+Автор: {{ new Date(env.NAME).toLocaleString() }}
 Дата: {{ date }}
 
 CHANGELOG {{  env.BODY  }}
