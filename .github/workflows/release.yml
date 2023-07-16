@@ -29,15 +29,15 @@ jobs:
             - name: Install deps
               run: npm ci
             - name: Unit tests
-              id: unit-test
               run: npm run test-ci > unit-log.log
             - name: Read test results from file
-              run: echo ::set-output name=test_content::$(cat unit-log.log)
+              id: unit-test-logs
+              run: echo "::set-output name=test_content::$(cat unit-log.log)"
             - name: Create comment
               uses: peter-evans/create-or-update-comment@v3
               with:
                   issue-number: ${{ steps.createIssue.outputs.number }}
-                  body: ${{ steps.unit-test.outputs.test_content}}
+                  body: ${{ steps.unit-test-logs.outputs.test_content}}
             - name: Lint tests
               run: npm run lint
             - name: Build
