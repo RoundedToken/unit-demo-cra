@@ -1,9 +1,7 @@
 ---
-title: New release
+title: New release {{ env.VERSION }}
 assignees: RoundedToken
 labels: RELEASE
 ---
 
-## VERSION ${{ env.VERSION }}
-
-${{  env.BODY  }}
+{{  env.BODY  }}
