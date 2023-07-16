@@ -26,8 +26,22 @@ jobs:
               with:
                   update_existing: true
                   search_existing: all
-            - name: Install
+            - name: Install deps
               run: npm ci
+            - name: Unit tests
+              run: npm run test-ci
+            - name: Upload Artifact
+              uses: actions/upload-artifact@v3
+              with:
+                  name: unit-test-report
+                  path: test-report.html
+            - uses: actions/download-artifact@v3
+              id: download1
+              with:
+                  name: unit-test-report
+                  path: test-report.html
+            - name: Lint tests
+              run: npm run lint
             - name: Build
               run: npm run build
             - name: Deploy!
@@ -38,4 +52,4 @@ jobs:
               uses: peter-evans/close-issue@v3
               with:
                   issue-number: ${{ steps.createIssue.outputs.number }}
-                  comment: Auto-closing issue
+                  comment: Успешный деплой на gh-pages завершен! ${{steps.download1.outputs}}
