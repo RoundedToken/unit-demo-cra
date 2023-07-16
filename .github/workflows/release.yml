@@ -36,6 +36,7 @@ jobs:
               run: CI=true npm run test > unit-log.log 2>&1
 
             - name: Comment unit-tests-logs
+              if: always()
               uses: peter-evans/create-or-update-comment@v3
               with:
                   issue-number: ${{ steps.createIssue.outputs.number }}
