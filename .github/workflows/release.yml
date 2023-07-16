@@ -15,7 +15,7 @@ jobs:
               uses: loopwerk/tag-changelog@v1
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
-            - name: Create Issue From File!!!!
+            - name: Create Issue From File!!!!!
               uses: JasonEtco/create-an-issue@v2
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
