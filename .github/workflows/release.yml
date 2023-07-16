@@ -49,6 +49,7 @@ jobs:
               run: npm run e2e > e2e-log.log 2>&1
 
             - name: Comment e2e-tests-logs
+              if: always()
               uses: peter-evans/create-or-update-comment@v3
               with:
                   issue-number: ${{ steps.createIssue.outputs.number }}
