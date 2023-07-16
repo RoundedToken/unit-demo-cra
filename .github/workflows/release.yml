@@ -20,4 +20,4 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   BODY: ${{ steps.changelog.outputs.changelog }}
-                  VERSION: ${{ github.ref }}
+                  VERSION: ${{ github.ref.replace('refs/tags/', '') }}
