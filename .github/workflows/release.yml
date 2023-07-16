@@ -16,7 +16,7 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   sinceTag: ${{  github.ref  }}
-            - name: Create Issue From File!!
+            - name: Create Issue From File!!!
               uses: JasonEtco/create-an-issue@v2
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
