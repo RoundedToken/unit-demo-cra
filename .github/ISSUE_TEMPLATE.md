@@ -5,6 +5,6 @@ labels: RELEASE
 ---
 
 Автор: {{ env.NAME }}
-Дата: {{ new Date(date).toLocaleString() }}
+Дата: {{ date | date('dddd, MMMM Do') }}
 
 CHANGELOG {{  env.BODY  }}
