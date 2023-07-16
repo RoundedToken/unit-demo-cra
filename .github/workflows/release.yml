@@ -11,6 +11,7 @@ jobs:
             - name: Checkout code!
               uses: actions/checkout@v3
             - name: '✏️ Generate release changelog'
+              id: changelog
               uses: heinrichreimer/github-changelog-generator-action@v2.3
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
@@ -18,3 +19,4 @@ jobs:
               uses: JasonEtco/create-an-issue@v2
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  BODY: ${{ steps.changelog.outputs }}
