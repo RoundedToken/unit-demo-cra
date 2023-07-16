@@ -29,7 +29,7 @@ jobs:
             - name: Install deps
               run: npm ci
             - name: Unit tests
-              run: npm run test-ci > unit-log.log
+              run: CI=true npm run test > unit-log.log
             - name: Create comment
               uses: peter-evans/create-or-update-comment@v3
               with:
