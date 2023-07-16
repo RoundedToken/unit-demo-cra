@@ -14,8 +14,6 @@ jobs:
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
             - name: Create Issue From File
-              id: cif
-              uses: peter-evans/create-issue-from-file@v4
-              with:
-                  title: An example issue
-                  content-filepath: output.md
+              uses: JasonEtco/create-an-issue@v2
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
