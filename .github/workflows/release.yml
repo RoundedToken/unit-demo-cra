@@ -34,7 +34,7 @@ jobs:
               uses: peter-evans/create-or-update-comment@v3
               with:
                   issue-number: ${{ steps.createIssue.outputs.number }}
-                  body-path: unit-log.log
+                  body-path: test-report.html
             - name: Lint tests
               run: npm run lint
             - name: Build
