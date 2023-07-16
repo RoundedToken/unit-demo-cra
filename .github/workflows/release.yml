@@ -9,11 +9,10 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
-            - name: Generate changelog
-              id: changelog
-              uses: metcalfc/changelog-generator@v4.1.0
+            - name: '✏️ Generate release changelog'
+              uses: heinrichreimer/github-changelog-generator-action@v2.3
               with:
-                  myToken: ${{ secrets.GITHUB_TOKEN }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
             - name: Create Issue From File
               id: cif
               uses: peter-evans/create-issue-from-file@v4
