@@ -1,0 +1,22 @@
+name: Release
+on:
+    push:
+        tags:
+            - 'v*'
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+            - name: Generate changelog
+              id: changelog
+              uses: metcalfc/changelog-generator@v4.1.0
+              with:
+                  myToken: ${{ secrets.GITHUB_TOKEN }}
+            - name: Create Issue From File
+              id: ciff
+              uses: peter-evans/create-issue-from-file@v4
+              with:
+                  title: An example issue
+                  content-filepath: output.md
