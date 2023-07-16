@@ -21,6 +21,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   BODY: ${{ steps.changelog.outputs.changelog }}
                   VERSION: ${{ github.ref_name }}
+                  NAME: ${{ github.actor }}
               with:
                   update_existing: true
                   search_existing: all

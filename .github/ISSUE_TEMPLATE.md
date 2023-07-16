@@ -4,4 +4,7 @@ assignees: RoundedToken
 labels: RELEASE
 ---
 
-{{  env.BODY  }}
+Автор: {{  env.NAME }}
+Дата: {{ date }}
+
+CHANGELOG {{  env.BODY  }}
