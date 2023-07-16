@@ -10,12 +10,12 @@ jobs:
         steps:
             - name: Checkout code!
               uses: actions/checkout@v3
-            - name: '✏️ Generate release changelog'
+            - name: Conventional Changelog Action
               id: changelog
-              uses: heinrichreimer/github-changelog-generator-action@v2.3
+              uses: TriPSs/conventional-changelog-action@v3
               with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  sinceTag: ${{ github.ref }}
+                  github-token: ${{ secrets.github_token }}
+                  skip-commit: 'true'
             - name: Create Issue From File!!!
               uses: JasonEtco/create-an-issue@v2
               env:
