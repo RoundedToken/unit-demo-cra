@@ -29,12 +29,12 @@ jobs:
             - name: Install deps
               run: npm ci
             - name: Unit tests
-              run: CI=true npm run test > unit-log.log
+              run: CI=true npm run test > unit-log.log 2>&1
             - name: Create comment
               uses: peter-evans/create-or-update-comment@v3
               with:
                   issue-number: ${{ steps.createIssue.outputs.number }}
-                  body-path: test-report.html
+                  body-path: test-report.log
             - name: Lint tests
               run: npm run lint
             - name: Build
