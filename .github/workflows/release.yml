@@ -1,0 +1,73 @@
+name: Release
+on:
+    push:
+        tags:
+            - 'v[0-9]+'
+jobs:
+    release:
+        permissions: write-all
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Create changelog text
+              id: changelog
+              uses: loopwerk/tag-changelog@v1
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Create Issue From File
+              uses: JasonEtco/create-an-issue@v2
+              id: createIssue
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  BODY: ${{ steps.changelog.outputs.changelog }}
+                  VERSION: ${{ github.ref_name }}
+                  NAME: ${{ github.actor }}
+              with:
+                  update_existing: true
+                  search_existing: all
+
+            - name: Install deps
+              run: npm ci
+
+            - name: Unit tests
+              run: CI=true npm run test > unit-log.log 2>&1
+
+            - name: Comment unit-tests-logs
+              if: always()
+              uses: peter-evans/create-or-update-comment@v3
+              with:
+                  issue-number: ${{ steps.createIssue.outputs.number }}
+                  body-path: unit-log.log
+
+            - name: Install playwright deps
+              run: npx playwright install --with-deps
+
+            - name: e2e tests
+              run: npm run e2e > e2e-log.log 2>&1
+
+            - name: Comment e2e-tests-logs
+              if: always()
+              uses: peter-evans/create-or-update-comment@v3
+              with:
+                  issue-number: ${{ steps.createIssue.outputs.number }}
+                  body-path: e2e-log.log
+
+            - name: Lint tests
+              run: npm run lint
+
+            - name: Build
+              run: npm run build
+
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  folder: build
+
+            - name: Close Issue
+              uses: peter-evans/close-issue@v3
+              with:
+                  issue-number: ${{ steps.createIssue.outputs.number }}
+                  comment: Успешный деплой на gh-pages завершен!
