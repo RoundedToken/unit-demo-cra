@@ -1,3 +1,4 @@
 checking good commit
 checking bad commit message
 good again
+new release tag
